@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 320" width="1280" height="320" role="img" aria-labelledby="t d">
+  <title id="t">Brian Flores — Full Stack &amp; Cloud-Native Software Engineer</title>
+  <desc id="d">Banner with name, role and focus areas, in sky blue and orange.</desc>
+
+  <rect width="1280" height="320" fill="#E8F6FD"/>
+
+  <rect x="0" y="0" width="1280" height="14" fill="#0EA5E9"/>
+  <rect x="980" y="0" width="300" height="14" fill="#F97316"/>
+
+  <circle cx="1060" cy="40" r="86" fill="#BAE6FD"/>
+  <circle cx="1160" cy="285" r="150" fill="#F97316"/>
+  <circle cx="1018" cy="170" r="24" fill="#0B3A5B"/>
+
+  <g font-family="'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif">
+    <text x="64" y="132" font-size="68" font-weight="800" fill="#0B3A5B" letter-spacing="-1">Brian Flores</text>
+    <text x="64" y="188" font-size="30" font-weight="600" fill="#0369A1">Full Stack &amp; Cloud-Native Software Engineer</text>
+    <text x="64" y="240" font-size="20" font-weight="500" fill="#0B3A5B">Enterprise Microfrontends · Distributed Event-Driven Systems · Kubernetes &amp; OpenShift</text>
+  </g>
+</svg>
