@@ -1,0 +1,182 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" width="1200" height="300" role="img" aria-labelledby="svg-title svg-desc">
+  <title id="svg-title">Event-Driven Architecture: Broker Pub/Sub Pattern</title>
+  <desc id="svg-desc">Diagrama animado de una arquitectura orientada a eventos donde un productor emite un evento a un broker de mensajería distribuido y se distribuye en paralelo a múltiples consumidores independientes.</desc>
+
+  <defs>
+    <clipPath id="container-clip-eda">
+      <rect x="0" y="0" width="1200" height="300" rx="20" ry="20" />
+    </clipPath>
+  </defs>
+
+  <style>
+    .font-mono { font-family: 'SFMono-Regular', Consolas, Menlo, monospace; }
+    .font-sans { font-family: 'Segoe UI', Roboto, Arial, sans-serif; }
+
+    /* 1. Emisión del evento desde el Productor al Broker (Naranja #F97316) */
+    @keyframes emitEvent {
+      0% { transform: translate(250px, 160px) scale(0); opacity: 0; }
+      4% { transform: translate(250px, 160px) scale(1); opacity: 1; }
+      28% { transform: translate(520px, 160px) scale(1); opacity: 1; }
+      36% { transform: translate(550px, 160px) scale(1.1); opacity: 1; }
+      44% { transform: translate(580px, 160px) scale(0); opacity: 0; }
+      100% { transform: translate(250px, 160px) scale(0); opacity: 0; }
+    }
+    .event-lead {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: emitEvent 8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+
+    /* 2. Distribución en paralelo a los 3 Consumidores */
+    @keyframes consumeA {
+      0%, 42% { transform: translate(660px, 160px) scale(0); opacity: 0; }
+      48% { transform: translate(680px, 160px) scale(1); opacity: 1; }
+      68% { transform: translate(910px, 126px) scale(1); opacity: 1; }
+      78% { transform: translate(920px, 126px) scale(0); opacity: 0; }
+      100% { transform: translate(660px, 160px) scale(0); opacity: 0; }
+    }
+    @keyframes consumeB {
+      0%, 44% { transform: translate(660px, 160px) scale(0); opacity: 0; }
+      50% { transform: translate(680px, 160px) scale(1); opacity: 1; }
+      70% { transform: translate(910px, 160px) scale(1); opacity: 1; }
+      80% { transform: translate(920px, 160px) scale(0); opacity: 0; }
+      100% { transform: translate(660px, 160px) scale(0); opacity: 0; }
+    }
+    @keyframes consumeC {
+      0%, 46% { transform: translate(660px, 160px) scale(0); opacity: 0; }
+      52% { transform: translate(680px, 160px) scale(1); opacity: 1; }
+      72% { transform: translate(910px, 194px) scale(1); opacity: 1; }
+      82% { transform: translate(920px, 194px) scale(0); opacity: 0; }
+      100% { transform: translate(660px, 160px) scale(0); opacity: 0; }
+    }
+    .consumer-pkt-1 { animation: consumeA 8s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
+    .consumer-pkt-2 { animation: consumeB 8s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
+    .consumer-pkt-3 { animation: consumeC 8s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
+
+    /* Particiones del Broker que parpadean al ingresar el evento */
+    @keyframes brokerLog {
+      0%, 30% { fill: #BAE6FD; }
+      38%, 70% { fill: #0EA5E9; }
+      85%, 100% { fill: #BAE6FD; }
+    }
+    .broker-slot { animation: brokerLog 8s ease-in-out infinite; }
+  </style>
+
+  <g clip-path="url(#container-clip-eda)">
+    <rect x="0" y="0" width="1200" height="300" fill="#E8F6FD" stroke="#0B3A5B" stroke-width="3" rx="20" ry="20" />
+
+    <!-- Franja superior -->
+    <rect x="0" y="0" width="900" height="10" fill="#0EA5E9" />
+    <rect x="900" y="0" width="300" height="10" fill="#F97316" />
+
+    <!-- Título y subtítulo -->
+    <text x="50" y="44" class="font-mono" font-size="15" font-weight="700" fill="#0B3A5B" letter-spacing="1">EVENT-DRIVEN ARCHITECTURE</text>
+    <text x="50" y="65" class="font-sans" font-size="12.5" font-weight="600" fill="#0369A1">Asynchronous Decoupling · Publisher → Distributed Log Broker → Independent Consumers</text>
+
+    <!-- Chip derecho -->
+    <rect x="980" y="28" width="170" height="28" rx="6" fill="#BAE6FD" stroke="#0B3A5B" stroke-width="2" />
+    <text x="1065" y="46" class="font-mono" font-size="11" font-weight="700" fill="#0B3A5B" text-anchor="middle">ASYNC REPLAY: ON</text>
+
+    <!-- Rieles -->
+    <line x1="260" y1="160" x2="480" y2="160" stroke="#BAE6FD" stroke-width="6" stroke-linecap="round" />
+    <line x1="260" y1="160" x2="480" y2="160" stroke="#0EA5E9" stroke-width="2" stroke-dasharray="6 8" />
+
+    <line x1="680" y1="160" x2="900" y2="126" stroke="#BAE6FD" stroke-width="4" stroke-linecap="round" />
+    <line x1="680" y1="160" x2="900" y2="160" stroke="#BAE6FD" stroke-width="4" stroke-linecap="round" />
+    <line x1="680" y1="160" x2="900" y2="194" stroke="#BAE6FD" stroke-width="4" stroke-linecap="round" />
+
+    <!-- ==================== ETAPA 1: PRODUCER ==================== -->
+    <g id="producer-stage">
+      <rect x="70" y="105" width="180" height="110" rx="12" fill="#FFFFFF" stroke="#0B3A5B" stroke-width="3" />
+      <path d="M 70 117 A 12 12 0 0 1 82 105 L 238 105 A 12 12 0 0 1 250 117 L 250 126 L 70 126 Z" fill="#0B3A5B" />
+      <text x="160" y="121" class="font-mono" font-size="10" font-weight="700" fill="#FFFFFF" text-anchor="middle">PRODUCER SERVICE</text>
+
+      <rect x="85" y="136" width="150" height="26" rx="5" fill="#0B3A5B" />
+      <text x="160" y="153" class="font-mono" font-size="9.5" font-weight="700" fill="#7DD3FC" text-anchor="middle">publish(OrderPlaced)</text>
+
+      <rect x="85" y="168" width="150" height="34" rx="5" fill="#BAE6FD" stroke="#0B3A5B" stroke-width="1.5" />
+      <text x="160" y="184" class="font-mono" font-size="9" font-weight="700" fill="#0B3A5B" text-anchor="middle">No wait for downstream</text>
+      <text x="160" y="196" class="font-mono" font-size="8.5" font-weight="700" fill="#0369A1" text-anchor="middle">202 Accepted</text>
+
+      <rect x="110" y="226" width="100" height="26" rx="6" fill="#BAE6FD" stroke="#0B3A5B" stroke-width="2" />
+      <text x="160" y="243" class="font-mono" font-size="11" font-weight="700" fill="#0B3A5B" text-anchor="middle">EMITTER</text>
+      <text x="160" y="268" class="font-sans" font-size="11" font-weight="600" fill="#0369A1" text-anchor="middle">Order Service API</text>
+    </g>
+
+    <!-- ==================== ETAPA 2: MESSAGE BROKER ==================== -->
+    <g id="broker-stage">
+      <rect x="470" y="95" width="200" height="130" rx="12" fill="#FFFFFF" stroke="#0B3A5B" stroke-width="3" />
+      <path d="M 470 107 A 12 12 0 0 1 482 95 L 658 95 A 12 12 0 0 1 670 107 L 670 118 L 470 118 Z" fill="#0B3A5B" />
+      <text x="570" y="112" class="font-mono" font-size="10" font-weight="700" fill="#FFFFFF" text-anchor="middle">EVENT BROKER (KAFKA / LOG)</text>
+
+      <!-- Particiones / Slots en cola -->
+      <g transform="translate(488, 126)">
+        <rect x="0" y="0" width="164" height="24" rx="4" fill="#E8F6FD" stroke="#0B3A5B" stroke-width="1.5" />
+        <rect x="8" y="5" width="28" height="14" rx="3" fill="#BAE6FD" class="broker-slot" />
+        <rect x="42" y="5" width="28" height="14" rx="3" fill="#BAE6FD" class="broker-slot" />
+        <rect x="76" y="5" width="28" height="14" rx="3" fill="#F97316" />
+        <text x="130" y="16" class="font-mono" font-size="9" font-weight="700" fill="#0B3A5B">OFFSET: 84</text>
+      </g>
+      <g transform="translate(488, 156)">
+        <rect x="0" y="0" width="164" height="24" rx="4" fill="#E8F6FD" stroke="#0B3A5B" stroke-width="1.5" />
+        <rect x="8" y="5" width="28" height="14" rx="3" fill="#0EA5E9" />
+        <rect x="42" y="5" width="28" height="14" rx="3" fill="#BAE6FD" />
+        <rect x="76" y="5" width="28" height="14" rx="3" fill="#BAE6FD" />
+        <text x="130" y="16" class="font-mono" font-size="9" font-weight="700" fill="#0B3A5B">OFFSET: 85</text>
+      </g>
+      <rect x="488" y="186" width="164" height="26" rx="4" fill="#0B3A5B" />
+      <text x="570" y="203" class="font-mono" font-size="9.5" font-weight="700" fill="#7DD3FC" text-anchor="middle">TOPIC: orders.v1</text>
+
+      <rect x="520" y="236" width="100" height="26" rx="6" fill="#BAE6FD" stroke="#0B3A5B" stroke-width="2" />
+      <text x="570" y="253" class="font-mono" font-size="11" font-weight="700" fill="#0B3A5B" text-anchor="middle">STREAM</text>
+      <text x="570" y="278" class="font-sans" font-size="11" font-weight="600" fill="#0369A1" text-anchor="middle">Persistent &amp; Replayable</text>
+    </g>
+
+    <!-- ==================== ETAPA 3: CONSUMERS ==================== -->
+    <g id="consumers-stage">
+      <rect x="900" y="100" width="240" height="120" rx="12" fill="#FFFFFF" stroke="#0B3A5B" stroke-width="3" />
+      <path d="M 900 112 A 12 12 0 0 1 912 100 L 1128 100 A 12 12 0 0 1 1140 112 L 1140 120 L 900 120 Z" fill="#0B3A5B" />
+      <text x="1020" y="115" class="font-mono" font-size="10" font-weight="700" fill="#FFFFFF" text-anchor="middle">CONSUMER GROUPS (IN PARALLEL)</text>
+
+      <!-- Consumidor 1: Inventario -->
+      <g transform="translate(915, 126)">
+        <rect x="0" y="0" width="210" height="24" rx="4" fill="#0B3A5B" />
+        <circle cx="12" cy="12" r="4" fill="#7DD3FC" />
+        <text x="24" y="16" class="font-mono" font-size="9.5" font-weight="700" fill="#FFFFFF">INVENTORY (Stock Reserved)</text>
+      </g>
+
+      <!-- Consumidor 2: Notificaciones -->
+      <g transform="translate(915, 156)">
+        <rect x="0" y="0" width="210" height="24" rx="4" fill="#0B3A5B" />
+        <circle cx="12" cy="12" r="4" fill="#7DD3FC" />
+        <text x="24" y="16" class="font-mono" font-size="9.5" font-weight="700" fill="#FFFFFF">NOTIFICATIONS (Push &amp; SMS)</text>
+      </g>
+
+      <!-- Consumidor 3: Pagos / Facturación -->
+      <g transform="translate(915, 186)">
+        <rect x="0" y="0" width="210" height="24" rx="4" fill="#0B3A5B" />
+        <circle cx="12" cy="12" r="4" fill="#7DD3FC" />
+        <text x="24" y="16" class="font-mono" font-size="9.5" font-weight="700" fill="#FFFFFF">PAYMENTS (Ledger Recorded)</text>
+      </g>
+
+      <rect x="970" y="230" width="100" height="26" rx="6" fill="#FDBA74" stroke="#0B3A5B" stroke-width="2" />
+      <text x="1020" y="247" class="font-mono" font-size="11" font-weight="700" fill="#0B3A5B" text-anchor="middle">FAN-OUT</text>
+      <text x="1020" y="272" class="font-sans" font-size="11" font-weight="600" fill="#C2410C" text-anchor="middle">Zero Cascading Failures</text>
+    </g>
+
+    <!-- Evento Productor Viajando -->
+    <g class="event-lead">
+      <rect x="-14" y="-14" width="28" height="28" rx="6" fill="#F97316" stroke="#0B3A5B" stroke-width="2" />
+      <circle cx="0" cy="0" r="4.5" fill="#FFFFFF" />
+    </g>
+
+    <!-- Señales paralelas a los consumidores -->
+    <circle cx="0" cy="0" r="4.5" fill="#0EA5E9" class="consumer-pkt-1" />
+    <circle cx="0" cy="0" r="4.5" fill="#0EA5E9" class="consumer-pkt-2" />
+    <circle cx="0" cy="0" r="4.5" fill="#0EA5E9" class="consumer-pkt-3" />
+
+    <!-- Firma -->
+    <text x="50" y="282" class="font-mono" font-size="10.5" font-weight="700" fill="#0369A1">BRIAN FLORES · DISTRIBUTED SYSTEMS ARCHITECTURE</text>
+  </g>
+</svg>
+
